@@ -9,10 +9,19 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.vladd.idef1loader.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <applicationService
+                serviceImplementation="com.github.vladd.idef1loader.settings.RacingProgressBarSettingsState"/>
+        <applicationConfigurable parentId="apperance"
+                                 instance="com.github.vladd.idef1loader.settings.RacingProgressBarConfigurable"
+                                 displayName="Racing Progress Bar"
+                                 id="com.github.vladd.idef1loader.settings.RacingProgressBarConfigurable"
+        />
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.vladd.idef1loader.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <listener class="com.github.vladd.idef1loader.listeners.ProgressBarListener"
+                  topic="com.intellij.ide.ui.LafManagerListener"/>
+        <listener class="com.github.vladd.idef1loader.listeners.ProgressBarListener"
+                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
 </idea-plugin>
