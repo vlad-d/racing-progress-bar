@@ -9,7 +9,7 @@ import javax.annotation.Nullable
 
 @State(name = "RacingProgressBarSettingsState", storages = [(Storage("racingProgressBarSettings.xml"))])
 class RacingProgressBarSettingsState : PersistentStateComponent<RacingProgressBarSettingsState> {
-    val teams = listOf("frr", "alp")
+    val teams = listOf("rbr", "mrc", "frr", "mcl", "am", "alp", "wil", "rb", "kik", "has")
     var selectedTeam = teams.random()
 
     @Nullable

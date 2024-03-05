@@ -18,7 +18,7 @@ class TeamsListCellRenderer : ListCellRenderer<ListItem> {
         isSelected: Boolean,
         cellHasFocus: Boolean
     ): Component {
-        val panel = JPanel(FlowLayout(FlowLayout.LEADING, 20, 4))
+        val panel = JPanel(FlowLayout(FlowLayout.TRAILING, 20, 4))
         panel.accessibleContext.accessibleName = "Team ${value?.key}"
         val label = JLabel(value?.key?.uppercase())
         val icon = ImageIcon(javaClass.getResource(value?.imagePath))
