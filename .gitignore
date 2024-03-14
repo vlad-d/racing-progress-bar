@@ -2,3 +2,5 @@
 .idea
 .qodana
 build
+private
+.DS_Store

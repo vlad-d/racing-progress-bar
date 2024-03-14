@@ -11,6 +11,7 @@ import javax.swing.ImageIcon
 import javax.swing.JComponent
 import javax.swing.JProgressBar
 import javax.swing.SwingConstants
+import javax.swing.plaf.basic.BasicGraphicsUtils
 import javax.swing.plaf.basic.BasicProgressBarUI
 
 open class RacingProgressBar : BasicProgressBarUI() {
@@ -26,6 +27,8 @@ open class RacingProgressBar : BasicProgressBarUI() {
     private var position = 0
 
     private lateinit var carIcon: BufferedImage
+    private lateinit var scaledCarLtr: ImageIcon
+    private lateinit var scaledCarRtl: ImageIcon
 
     override fun installDefaults() {
         super.installDefaults()
@@ -64,7 +67,7 @@ open class RacingProgressBar : BasicProgressBarUI() {
 
         val amountFull = getAmountFull(progressBar.insets, bRect.width, bRect.height)
 
-        paintCar(g2, c, barRectHeight, amountFull, true)
+        paintCar(g2, c, barRectHeight, amountFull, c.componentOrientation.isLeftToRight)
 
     }
 
@@ -180,35 +183,59 @@ open class RacingProgressBar : BasicProgressBarUI() {
     }
 
     private fun paintCar(g2: Graphics2D, c: JComponent, barRectHeight: Int, x: Int, isLtr: Boolean) {
-        val ratio = barRectHeight.toFloat() / carIcon.height.toFloat()
-        val newWidth = carIcon.width * ratio
-        val scaledIcon: ImageIcon;
+        val scaledIcon = getCar(barRectHeight, isLtr)
+        scaledIcon.paintIcon(c, g2, x, 0)
+    }
+
+    private fun getCar(height: Int, isLtr: Boolean): ImageIcon {
         if (isLtr) {
-            val scaledImage = carIcon.getScaledInstance(newWidth.toInt(), barRectHeight, java.awt.Image.SCALE_SMOOTH)
-            scaledIcon = ImageIcon(scaledImage)
-        } else {
+            if (!::scaledCarLtr.isInitialized) {
+                val ratio = height.toFloat() / carIcon.height.toFloat()
+                val newWidth = carIcon.width * ratio
+                val scaledImage = carIcon.getScaledInstance(newWidth.toInt(), height, java.awt.Image.SCALE_SMOOTH)
+                scaledCarLtr = ImageIcon(scaledImage)
+            }
+
+            return scaledCarLtr
+        }
+
+        if (!::scaledCarRtl.isInitialized) {
+            val ratio = height.toFloat() / carIcon.height.toFloat()
+            val newWidth = carIcon.width * ratio
             var tx = AffineTransform()
             tx.quadrantRotate(2, carIcon.width / 2.0, carIcon.height / 2.0)
-
             var op = AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR)
             val rotatedImage = op.filter(carIcon, null)
             val scaledImage =
-                rotatedImage.getScaledInstance(newWidth.toInt(), barRectHeight, java.awt.Image.SCALE_SMOOTH)
-            scaledIcon = ImageIcon(scaledImage)
+                rotatedImage.getScaledInstance(newWidth.toInt(), height, java.awt.Image.SCALE_SMOOTH)
+            scaledCarRtl = ImageIcon(scaledImage)
         }
 
+        return scaledCarRtl
 
-        scaledIcon.paintIcon(c, g2, x, 0)
+    }
+
+    private fun getCarWidth(): Int {
+        if (::scaledCarLtr.isInitialized) {
+            return scaledCarLtr.iconWidth
+        }
+
+        if (::scaledCarRtl.isInitialized) {
+            return scaledCarRtl.iconWidth
+        }
+
+        return 0
+
     }
 
 
     private fun updatePosition(width: Int) {
-//        val currentFrame = animationIndex
-
+        val carWidth = getCarWidth()
+        val maxWidth = width - carWidth
         position += velocity
         if (velocity > 0) {
-            if (position > width) {
-                position = width
+            if (position > maxWidth) {
+                position = maxWidth
                 velocity = -1
             } else if (position < 0) {
                 position = 0
@@ -218,8 +245,8 @@ open class RacingProgressBar : BasicProgressBarUI() {
             if (position < 0) {
                 position = 0
                 velocity = 1
-            } else if (position > width) {
-                position = width
+            } else if (position > maxWidth) {
+                position = maxWidth
                 velocity = -1
             }
         }
