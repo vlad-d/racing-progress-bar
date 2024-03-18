@@ -1,4 +1,4 @@
-package com.github.vladd.idef1loader.settings
+package dev.imake.idef1loader.settings
 
 import java.awt.Component
 import java.awt.FlowLayout

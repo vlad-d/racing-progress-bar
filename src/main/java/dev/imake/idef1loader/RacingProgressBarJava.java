@@ -1,4 +1,4 @@
-package com.github.vladd.idef1loader;
+package dev.imake.idef1loader;
 
 import com.intellij.ide.PowerSaveMode;
 import org.jetbrains.annotations.NotNull;

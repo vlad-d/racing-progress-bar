@@ -1,4 +1,4 @@
-package com.github.vladd.idef1loader.settings
+package dev.imake.idef1loader.settings
 
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBList

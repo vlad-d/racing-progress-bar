@@ -1,4 +1,4 @@
-package com.github.vladd.idef1loader.settings
+package dev.imake.idef1loader.settings
 
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.State

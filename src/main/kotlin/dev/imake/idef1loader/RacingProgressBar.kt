@@ -1,6 +1,6 @@
-package com.github.vladd.idef1loader
+package dev.imake.idef1loader
 
-import com.github.vladd.idef1loader.settings.RacingProgressBarSettingsState
+import dev.imake.idef1loader.settings.RacingProgressBarSettingsState
 import com.intellij.ui.JBColor
 import java.awt.*
 import java.awt.geom.AffineTransform

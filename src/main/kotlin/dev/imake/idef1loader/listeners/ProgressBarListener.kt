@@ -1,8 +1,6 @@
-package com.github.vladd.idef1loader.listeners
+package dev.imake.idef1loader.listeners
 
-import com.github.vladd.idef1loader.RacingProgressBar
-import com.github.vladd.idef1loader.RacingProgressBarJava
-import com.intellij.ide.plugins.DynamicPluginListener
+import dev.imake.idef1loader.RacingProgressBarJava
 import com.intellij.ide.ui.LafManager
 import com.intellij.ide.ui.LafManagerListener
 import com.intellij.openapi.application.ApplicationActivationListener

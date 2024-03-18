@@ -1,4 +1,4 @@
-package com.github.vladd.idef1loader
+package dev.imake.idef1loader
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
