@@ -8,6 +8,9 @@ Rev up your coding sessions with this F1 inspired Racing Progress Bar plugin. Th
 
 <!-- Plugin description end -->
 
+The Racing Progress Bar plugin is compatible with IntelliJ IDEA and other JetBrains IDEs.
+
+
 ## Installation
 
 - Using the IDE built-in plugin system:

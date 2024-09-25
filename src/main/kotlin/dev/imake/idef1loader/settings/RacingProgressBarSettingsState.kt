@@ -5,7 +5,7 @@ import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.openapi.components.service
 import com.intellij.util.xmlb.XmlSerializerUtil
-import javax.annotation.Nullable
+import org.jetbrains.annotations.Nullable
 
 @State(name = "RacingProgressBarSettingsState", storages = [(Storage("racingProgressBarSettings.xml"))])
 class RacingProgressBarSettingsState : PersistentStateComponent<RacingProgressBarSettingsState> {
