@@ -17,19 +17,17 @@ class RacingProgressBarComponent {
 
         teamDropdown.cellRenderer = TeamsListCellRenderer()
         teamDropdown.setListData(listItems)
-        teamDropdown.selectedIndex = selectedIndex
+        if (selectedIndex >= 0) {
+            teamDropdown.selectedIndex = selectedIndex
+        }
 
         val dropdownContainer = JPanel(FlowLayout(FlowLayout.LEADING, 0, 4))
         dropdownContainer.add(teamDropdown)
-        dropdownContainer.size.width = 200
-
 
         mainPanel = FormBuilder.createFormBuilder()
             .addLabeledComponent(JBLabel("Select team"), dropdownContainer, 1, true)
             .addComponentFillVertically( JPanel(), 0)
             .panel
-
-
     }
 
     fun getPanel(): JPanel {
@@ -37,10 +35,17 @@ class RacingProgressBarComponent {
     }
 
     fun getSelectedTeam(): String {
-        return teamDropdown.selectedValue.key
+        return teamDropdown.selectedValue?.key ?: RacingProgressBarSettingsState.getInstance().selectedTeam
     }
 
     fun setSelectedTeam(team: String) {
-        teamDropdown.setSelectedValue(team, true)
+        val model = teamDropdown.model
+        for (i in 0 until model.size) {
+            val item = model.getElementAt(i)
+            if (item.key == team) {
+                teamDropdown.selectedIndex = i
+                break
+            }
+        }
     }
 }

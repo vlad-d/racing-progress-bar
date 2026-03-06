@@ -21,8 +21,17 @@ class TeamsListCellRenderer : ListCellRenderer<ListItem> {
         val panel = JPanel(FlowLayout(FlowLayout.TRAILING, 20, 4))
         panel.accessibleContext.accessibleName = "Team ${value?.key}"
         val label = JLabel(value?.key?.uppercase())
-        val icon = ImageIcon(javaClass.getResource(value?.imagePath))
-        val iconLabel = JLabel(icon)
+
+        // Load the icon safely, handling null resources
+        val iconLabel = value?.imagePath?.let { imagePath ->
+            val iconUrl = javaClass.getResource(imagePath)
+            if (iconUrl != null) {
+                JLabel(ImageIcon(iconUrl))
+            } else {
+                JLabel() // Empty label if resource not found
+            }
+        } ?: JLabel()
+
         if (isSelected) {
             panel.background = list?.selectionBackground
             label.foreground = list?.selectionForeground

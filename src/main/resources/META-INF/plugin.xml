@@ -11,8 +11,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService
                 serviceImplementation="dev.imake.idef1loader.settings.RacingProgressBarSettingsState"/>
-        <applicationConfigurable parentId="apperance"
-                                 instance="dev.imake.idef1loader.settings.RacingProgressBarConfigurable"
+        <applicationConfigurable instance="dev.imake.idef1loader.settings.RacingProgressBarConfigurable"
                                  displayName="Racing Progress Bar"
                                  id="dev.imake.idef1loader.settings.RacingProgressBarConfigurable"
         />
